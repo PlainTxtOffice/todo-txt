@@ -1,0 +1,1 @@
+"""Provide menu-bar composition."""

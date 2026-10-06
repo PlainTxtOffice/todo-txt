@@ -1,0 +1,106 @@
+#:schema https://json.schemastore.org/pyproject.json
+
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "todo-txt"
+version = "1.0.0"
+description = "Desktop todo.txt application with optional premium recurrence."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "GPL-3.0-or-later"
+authors = [{ name = "Tripp", email = "tripp@trippemail.com" }]
+license-files = ["LICENSE"]
+dependencies = ["PySide6>=6.8"]
+
+[dependency-groups]
+dev = ["pytest>=8", "mypy>=1", "ruff>=0.13"]
+
+[project.scripts]
+
+[tool.setuptools]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+addopts = "-s"
+testpaths = ["tests", ".project-memory/tests"]
+
+[tool.ruff]
+line-length = 80
+extend-exclude = ["tests"]
+# Apply the exclusion when the editor or a hook passes a file directly.
+force-exclude = true
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    # No per-file copyright headers.
+    "CPY001",
+    # Conflicts with ruff format; its added commas stop calls from rejoining.
+    "COM812",
+    # Pick one of each conflicting docstring pair: D211 and D212 stay on.
+    "D203",
+    "D213",
+    "DOC201",
+    "DOC501",
+]
+
+[tool.ruff.lint.pep8-naming]
+# Qt and logging overrides must keep their camelCase names.
+extend-ignore-names = [
+    "closeEvent",
+    "formatTime",
+    "paintCell",
+    "resizeEvent",
+]
+
+
+[tool.ruff.lint.per-file-ignores]
+"src/main.py" = ["E402"]
+
+[tool.ruff.lint.flake8-import-conventions.extend-aliases]
+"decimal.Decimal" = "D"
+
+[tool.mypy]
+exclude = ['(^|[\\/])tests([\\/]|$)']
+ignore_missing_imports = true
+
+[tool.pymarkdown]
+extensions.front-matter.enabled = true
+
+[tool.rumdl]
+# Match the 80-column wrap used by ruff and the editor.
+line-length = 80
+
+exclude = [".venv", "build", "dist"]
+# Also covers the ignored paths not listed above, such as .pytest_cache/ and
+# logs/, and keeps covering whatever .gitignore gains later.
+respect-gitignore = true
+
+[tool.rumdl.MD010]
+# Expand tabs to 2 spaces, not the default 4.
+spaces-per-tab = 2
+[tool.rumdl.MD029]
+# Style options:
+# - "one" or "one-one": All items numbered "1." (easiest maintenance)
+# - "ordered": Sequential numbering (1, 2, 3...)
+# - "ordered0": Zero-based sequential (0, 1, 2...)
+# - "one-or-ordered": Auto-detect per list (either all-ones OR sequential)
+# - "consistent": Document-wide consistency - uses most common style across all lists
+style = "one"
+
+[tool.rumdl.MD013]
+# Commands and paths inside fenced blocks cannot be wrapped to 80.
+code-blocks = false
+# Markdown table rows cannot be wrapped without breaking their structure.
+tables = false
+# Let `rumdl fmt` rewrap paragraphs, list items, and blockquotes whose lines
+# run past line-length. The default mode leaves lines already under the
+# limit alone, unlike "normalize".
+reflow = true
+reflow-mode = "default"

@@ -1,0 +1,41 @@
+# last updated 2026-03-01
+# Python-generated files
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Nuitka build artifacts
+*.build/
+*.dist/
+*.onefile-build/
+
+# virtual environments
+.venv**
+.env
+
+# caches
+.pytest_cache/
+__pycache__/
+
+# local settings with personal paths
+/settings.json
+
+# directories
+todotxt.net-dev/
+data/
+exports/
+logs/
+build/
+main.build/
+main.dist/
+main.onefile-build/
+
+# file extensions
+*.pdf
+*.db
+dev-docs/packaging/nuitka/installing_nuitka.md
+.DS_Store
+function_name_len.md
+.agents/*memory.local.*
